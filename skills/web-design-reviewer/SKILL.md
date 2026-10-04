@@ -307,8 +307,8 @@ flowchart TD
 {
   "mcpServers": {
     "playwright": {
-      "command": "npx",
-      "args": ["-y", "@playwright/mcp@latest", "--caps=vision"]
+      "command": "pnpm",
+      "args": ["dlx", "@playwright/mcp@latest", "--caps=vision"]
     }
   }
 }

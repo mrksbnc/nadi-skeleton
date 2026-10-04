@@ -14,13 +14,15 @@ This document explains specific fix techniques for each framework and styling me
   width: 100%;
 }
 
-/* After: Control overflow */
+/* After: constrain the element that caused overflow */
 .container {
   width: 100%;
   max-width: 100%;
-  overflow-x: hidden;
 }
 ```
+
+Find and fix the element causing overflow before adding clipping. Use `overflow: hidden`
+only where clipping is intentional; it can otherwise conceal content from users.
 
 ### Text Clipping Prevention
 
@@ -99,7 +101,7 @@ This document explains specific fix techniques for each framework and styling me
 {
   /* After: Overflow control */
 }
-;<div className="w-full max-w-full overflow-hidden">
+;<div className="w-full max-w-full">
   <img src="..." className="w-full h-auto object-contain" />
 </div>
 ```

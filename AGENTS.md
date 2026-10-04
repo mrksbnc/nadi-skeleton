@@ -8,23 +8,22 @@ modern web projects**. Humans should read the [README](./README.md) first.
 
 ## Project
 
-A batteries-included web project template built on Vite. It is intended as a starting
-point for client-side web applications and small SPAs. The actual UI framework is chosen
-when the project is initialized — add React, Vue, Svelte, or another framework only when
-that work starts.
+A beginner-friendly Vite and Supabase starter repository. It includes separate React and
+Vue workspaces under `templates/`; choose one for an app rather than combining both
+frameworks in a single application. The Supabase schema and design tokens are shared.
 
 ## Tech stack
 
 - **Language:** TypeScript (strict, ESM — `"type": "module"`)
 - **Build:** Vite
-- **Framework:** chosen per project. Skills are provided for [React](./skills/react/SKILL.md) and [Vue](./skills/vue/SKILL.md); add Svelte or another framework only when that work starts.
-- **Routing:** add a router when the framework is chosen
-- **State:** add a state solution when the framework is chosen
-- **Styling:** plain CSS by default; install Tailwind / styled-components / etc. only when required
+- **Frontend:** React 19 or Vue 3, each in its own workspace
+- **Backend:** Supabase (Postgres, Auth and Data API)
+- **Routing/state:** keep starter examples small; add framework-native solutions when product flows need them
+- **Styling:** shared, token-based CSS; keep the starter responsive and accessible
 - **Package manager:** **pnpm** — use `pnpm`, never npm/yarn
 - **Tests:** Vitest + jsdom
 - **Lint/format:** oxlint + ESLint; oxfmt (**no semicolons, single quotes, 2-space indent**)
-- **Type-check:** `tsc --noEmit`
+- **Type-check:** React `tsc`, Vue `vue-tsc`, and Playwright test `tsc`, through `pnpm type-check`
 
 ## Conventions
 
@@ -59,38 +58,44 @@ that work starts.
 
 ```sh
 pnpm install            # install dependencies
-pnpm dev                # dev server with HMR (run manually — long-running)
-pnpm build              # type-check + production build
-pnpm preview            # preview production build
-pnpm test:unit          # run Vitest (use `vitest --run` for single-shot)
-pnpm type-check         # TypeScript checking only
+pnpm dev:react          # React starter (run manually — long-running)
+pnpm dev:vue            # Vue starter (run manually — long-running)
+pnpm build              # type-check and production-build both starters
+pnpm preview:react      # preview React production build
+pnpm preview:vue        # preview Vue production build
+pnpm test:unit          # run both framework unit-test suites
+pnpm test:e2e           # browser smoke/responsive checks for both starters
+pnpm type-check         # type-check app workspaces and browser tests
 pnpm lint               # oxlint + eslint
 pnpm lint:fix           # oxlint + eslint (with --fix)
-pnpm format             # oxfmt on src/
+pnpm format             # oxfmt on the repository
+pnpm format:check       # check formatting without changing files
+pnpm supabase:start     # start the local Supabase stack (Docker required)
+pnpm supabase:reset     # rebuild local database from migrations
+pnpm supabase:test      # run local pgTAP/RLS tests
 ```
 
-> Long-running commands (`pnpm dev`, Vitest watch) should be run manually by the user, not
-> in blocking automation. Use `vitest --run` for single runs.
+> Long-running commands (`pnpm dev:react`, `pnpm dev:vue`) should be run manually by the
+> user, not in blocking automation. Use `vitest --run` for single runs.
 
 ## Repo map
 
-- `src/` — application source
-  - `components/` — reusable UI components (added with the chosen framework)
-  - `hooks/` — custom framework hooks (added with the chosen framework)
-  - `lib/` — pure helpers and utilities
-  - `App.*` — root component/module
-  - `main.*` — Vite entry point
+- `templates/react/` — React starter app
+- `templates/vue/` — Vue starter app
+- `templates/shared/` — shared design tokens/styles
+- `supabase/` — local config, migrations, types and RLS tests
 - `public/` — static assets served as-is
-- `index.html` — Vite HTML entry
 - `skills/` — on-demand AI agent capabilities (see [skills/README.md](./skills/README.md))
 
 ## Ground rules for agents
 
-- Keep `src/lib/` pure — no framework hooks or DOM side effects in utility modules unless
-  the helper's sole purpose is DOM-related.
+- Keep `lib/` modules pure — no framework hooks or DOM side effects in utility modules
+  unless the helper's sole purpose is DOM-related.
 - Add/adjust tests when changing logic. Prefer small, focused unit tests for utilities.
 - Follow the formatter/linter — don't hand-format against oxfmt.
 - Before adding a dependency, check whether the template already provides a suitable
   alternative.
-- When adding a framework (React, Vue, etc.), load the matching skill from `skills/` and
-  update `AGENTS.md` and tooling configs only as needed.
+- When changing a framework workspace, read its matching skill from `skills/` and keep
+  workspace-specific dependencies/configuration in that workspace where possible.
+- Never put Supabase secret/service-role keys in frontend code or `VITE_` variables. Use
+  publishable keys in the browser and protect exposed data with grants and RLS.

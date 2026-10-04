@@ -33,7 +33,7 @@ metadata:
 ### Component Template
 
 ```tsx
-import { useState, useCallback } from 'react'
+import { useState, useCallback, type ReactElement } from 'react'
 
 import styles from './Counter.module.css'
 
@@ -42,7 +42,7 @@ type CounterProps = {
   onChange?: (count: number) => void
 }
 
-export function Counter({ initialCount = 0, onChange }: CounterProps): JSX.Element {
+export function Counter({ initialCount = 0, onChange }: CounterProps): ReactElement {
   const [count, setCount] = useState(initialCount)
 
   const increment = useCallback(() => {
@@ -105,13 +105,13 @@ export function useWindowWidth(): number {
 ### Context Provider
 
 ```tsx
-import { createContext, useContext, useState, type ReactNode } from 'react'
+import { createContext, useContext, useState, type ReactElement, type ReactNode } from 'react'
 
 type Theme = 'light' | 'dark'
 
 const ThemeContext = createContext<Theme>('light')
 
-export function ThemeProvider({ children }: { children: ReactNode }): JSX.Element {
+export function ThemeProvider({ children }: { children: ReactNode }): ReactElement {
   const [theme] = useState<Theme>('light')
   return <ThemeContext.Provider value={theme}>{children}</ThemeContext.Provider>
 }

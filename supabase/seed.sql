@@ -1,0 +1,1 @@
+-- Add development-only sample data here. Never add real user data or credentials.

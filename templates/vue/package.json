@@ -1,0 +1,20 @@
+{
+  "name": "@repo-nadi/vue-starter",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "pnpm type-check && vite build",
+    "dev": "vite",
+    "preview": "vite preview",
+    "test:unit": "vitest run --environment jsdom",
+    "type-check": "vue-tsc --noEmit -p tsconfig.json"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.117.2",
+    "vue": "^3.5.43"
+  },
+  "devDependencies": {
+    "@vue/test-utils": "^2.5.1"
+  }
+}

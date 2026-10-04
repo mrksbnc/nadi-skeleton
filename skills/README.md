@@ -7,16 +7,29 @@ reference files the skill needs.
 ## Layout
 
 ```
-.claude/skills/
-  README.md              ← this file
+skills/
+  README.md
   <skill-name>/
-    <SKILL or any other filename>.md             ← the skill's instructions (required)
-    ...                  ← optional scripts, templates, references
+    SKILL.md              # frontmatter + instructions
+    references/           # optional supporting material
 ```
+
+Agents are directed to this repository-local skill library from `AGENTS.md`. Skill
+discovery is client-specific; if your agent does not load this directory automatically,
+open the relevant `SKILL.md` or install it into that agent's documented skill location.
+
+## Available skills
+
+- [React](./react/SKILL.md) — React components, hooks and tests
+- [Vue](./vue/SKILL.md) — Vue 3 Composition API and SFCs
+- [Supabase](./supabase/SKILL.md) — Supabase client, database and security workflows
+- [Frontend design](./frontend-design/SKILL.md) — distinctive visual direction and UI craft
+- [Vercel web design guidelines](./web-design-guidelines/SKILL.md) — accessibility, UX and interface review
+- [Web design reviewer](./web-design-reviewer/SKILL.md) — screenshot-based responsive review
 
 ## Adding a skill
 
-1. Create a folder named in kebab-case (e.g. `.claude/skills/balance-tuning/`).
+1. Create a folder named in kebab-case (e.g. `skills/balance-tuning/`).
 2. Add a `SKILL.md` with YAML frontmatter and a body:
 
 ```markdown

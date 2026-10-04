@@ -1,2 +1,6 @@
+packages:
+  - templates/react
+  - templates/vue
+
 allowBuilds:
   esbuild: true
